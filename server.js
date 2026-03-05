@@ -1,20 +1,28 @@
-// server.js - Complete working version
+// server.js - With Email Notifications
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = 3000;
 
-// Middleware to parse form data
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Serve static files from the current directory
 app.use(express.static(__dirname));
 
+// Email configuration (using Gmail)
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'alshehabshehab9@gmail.com', // YOUR GMAIL
+        pass: 'your-app-password-here' // You'll create this
+    }
+});
+
 // Handle contact form submission
-app.post('/submit-contact', (req, res) => {
+app.post('/submit-contact', async (req, res) => {
     const { name, email, message } = req.body;
     
     console.log('📧 New Contact Form Submission:');
@@ -43,6 +51,53 @@ app.post('/submit-contact', (req, res) => {
     messages.push(messageData);
     fs.writeFileSync('messages.json', JSON.stringify(messages, null, 2));
     console.log('✅ Message saved to messages.json');
+    
+    // Send email notification
+    try {
+        await transporter.sendMail({
+            from: '"Tutoring Platform" <alshehabshehab9@gmail.com>',
+            to: 'alshehabshehab9@gmail.com', // Your email
+            subject: `New Contact from ${name}`,
+            text: `
+Name: ${name}
+Email: ${email}
+Message: ${message}
+Time: ${new Date().toLocaleString()}
+            `,
+            html: `
+<h2>New Contact Form Submission</h2>
+<p><strong>Name:</strong> ${name}</p>
+<p><strong>Email:</strong> ${email}</p>
+<p><strong>Message:</strong> ${message}</p>
+<p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+            `
+        });
+        console.log('✅ Email notification sent');
+        
+        // Send auto-reply to customer
+        await transporter.sendMail({
+            from: '"LearnSmart Tutoring" <alshehabshehab9@gmail.com>',
+            to: email,
+            subject: 'Thank you for contacting LearnSmart Tutoring',
+            text: `
+Dear ${name},
+
+Thank you for reaching out to LearnSmart Tutoring!
+
+We've received your message and will get back to you within 24 hours.
+
+Your message: "${message}"
+
+Best regards,
+The LearnSmart Team
+            `
+        });
+        console.log('✅ Auto-reply sent to customer');
+        
+    } catch (emailErr) {
+        console.log('❌ Email error:', emailErr.message);
+    }
+    
     console.log('------------------------');
     
     // Send response
@@ -68,7 +123,8 @@ app.post('/submit-contact', (req, res) => {
             <main>
                 <h2>✅ Message Sent Successfully!</h2>
                 <p>Thank you <strong>${name}</strong>! We've received your message.</p>
-                <p>We'll respond to <strong>${email}</strong> within 24 hours.</p>
+                <p>A confirmation email has been sent to <strong>${email}</strong>.</p>
+                <p>We'll respond within 24 hours.</p>
                 <br>
                 <a href="contact.html" style="display: inline-block; background-color: #2c3e50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Send Another Message</a>
             </main>
@@ -80,7 +136,7 @@ app.post('/submit-contact', (req, res) => {
     `);
 });
 
-// View messages page
+// View messages page (same as before)
 app.get('/view-messages', (req, res) => {
     try {
         let messages = [];
@@ -127,7 +183,6 @@ app.get('/view-messages', (req, res) => {
         if (messages.length === 0) {
             html += '<p>No messages yet.</p>';
         } else {
-            // Show newest first
             messages.reverse().forEach(msg => {
                 const date = new Date(msg.date).toLocaleString();
                 html += `
@@ -152,23 +207,17 @@ app.get('/view-messages', (req, res) => {
         
         res.send(html);
     } catch (err) {
-        res.send(`
-            <h1>Error Loading Messages</h1>
-            <p>Please try again later.</p>
-            <a href="index.html">Go Home</a>
-        `);
+        res.send('<h1>Error loading messages</h1>');
     }
 });
 
-// Home page redirect
+// Home page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running at http://localhost:${PORT}`);
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
     console.log(`📁 View messages at: http://localhost:${PORT}/view-messages`);
-    console.log(`📞 Contact page: http://localhost:${PORT}/contact.html`);
-    console.log(`Press Ctrl+C to stop`);
 });
