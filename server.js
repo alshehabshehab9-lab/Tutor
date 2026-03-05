@@ -1,19 +1,20 @@
-// server.js - Complete working version for Render
+// server.js - FORCED PORT 10000 for Render
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
 const app = express();
-// Use Render's PORT environment variable or fallback to 3000
-const PORT = process.env.PORT || 3000;
+// FORCE the port to 10000 - this is what Render expects!
+const PORT = 10000;
 
 console.log('🚀 Starting server...');
 console.log('📂 Current directory:', __dirname);
 console.log('🔧 Node version:', process.version);
 console.log('📡 PORT:', PORT);
+console.log('⏳ Waiting for port to be available...');
 
 // Check if important files exist
-const requiredFiles = ['index.html', 'contact.html', 'style.css'];
+const requiredFiles = ['index.html', 'contact.html', 'style.css', 'subjects.html', 'tutors.html'];
 requiredFiles.forEach(file => {
     const filePath = path.join(__dirname, file);
     console.log(`📄 Checking ${file}:`, fs.existsSync(filePath) ? '✅ FOUND' : '❌ MISSING');
@@ -26,7 +27,7 @@ app.use(express.static(__dirname));
 
 console.log('✅ Middleware configured');
 
-// Health check endpoint - Render uses this
+// Health check endpoint - Render needs this
 app.get('/health', (req, res) => {
     console.log('✅ Health check received');
     res.status(200).send('OK');
@@ -202,11 +203,27 @@ app.get('/tutors.html', (req, res) => {
 });
 
 // Start server - CRITICAL: binds to 0.0.0.0 for Render
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅✅✅ SERVER IS RUNNING on port ${PORT}`);
     console.log(`🌐 Local: http://localhost:${PORT}`);
     console.log(`🌐 Live: https://tutor-app-iaec.onrender.com`);
     console.log(`📁 View messages at: https://tutor-app-iaec.onrender.com/view-messages`);
+    console.log(`📞 Contact page: https://tutor-app-iaec.onrender.com/contact.html`);
 }).on('error', (err) => {
     console.log('❌❌❌ SERVER FAILED TO START:', err.message);
+    if (err.code === 'EADDRINUSE') {
+        console.log(`⚠️ Port ${PORT} is already in use. Trying again in 5 seconds...`);
+        setTimeout(() => {
+            server.close();
+            app.listen(PORT, '0.0.0.0');
+        }, 5000);
+    }
+});
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('Received SIGTERM, shutting down gracefully');
+    server.close(() => {
+        console.log('Server closed');
+    });
 });
