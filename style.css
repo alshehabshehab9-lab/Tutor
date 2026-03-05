@@ -1,0 +1,296 @@
+/* style.css - Complete styling for LearnSmart Tutoring */
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Navigation */
+nav {
+    background-color: #34495e;
+    padding: 1rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #3498db;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+/* Main Content */
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    flex: 1;
+    width: 90%;
+}
+
+/* Typography */
+h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+h3 {
+    color: #34495e;
+    margin-top: 25px;
+}
+
+/* Lists */
+ul {
+    list-style-type: square;
+    padding-left: 25px;
+}
+
+li {
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Tutor Profiles */
+main div {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+main div:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+main div h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+main div p {
+    margin: 8px 0;
+}
+
+/* Book Session Button */
+main div button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+main div button:hover {
+    background-color: #2980b9;
+}
+
+/* Form Styling */
+form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+}
+
+label {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 15px;
+    display: block;
+    font-size: 1.1rem;
+}
+
+input[type="text"], 
+input[type="email"], 
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 20px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+textarea:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+input[type="submit"] {
+    background-color: #2c3e50;
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 10px 0 0 0;
+}
+
+input[type="submit"]:hover {
+    background-color: #3498db;
+    transform: scale(1.02);
+}
+
+/* Contact Info Boxes */
+main p {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 6px;
+    border-left: 4px solid #3498db;
+    margin: 10px 0;
+}
+
+main p strong {
+    color: #2c3e50;
+    min-width: 80px;
+    display: inline-block;
+}
+
+/* Hours of Operation */
+main p:contains("Monday"), 
+main p:contains("Saturday") {
+    border-left-color: #27ae60;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* Back to Top Button */
+button:not([type="submit"]) {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+button:not([type="submit"]):hover {
+    background-color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Search Box (Subjects page) */
+input[type="text"].search-box {
+    width: 100%;
+    padding: 15px;
+    margin: 20px 0 30px 0;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input[type="text"].search-box:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52,152,219,0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    nav a {
+        display: inline-block;
+        margin: 5px 10px;
+    }
+    
+    main {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    form {
+        padding: 20px;
+    }
+    
+    input[type="submit"] {
+        width: 100%;
+    }
+}

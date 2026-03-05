@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LearnSmart Tutoring</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional modern styles for contact page */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .contact-info h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            font-size: 1.1rem;
+        }
+
+        .info-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .info-text {
+            line-height: 1.6;
+        }
+
+        .info-text strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .hours-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .modern-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .modern-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modern-form input,
+        .modern-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .modern-form input:focus,
+        .modern-form textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52,152,219,0.2);
+        }
+
+        .modern-form input:hover,
+        .modern-form textarea:hover {
+            border-color: #2c3e50;
+        }
+
+        .modern-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(52,152,219,0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52,152,219,0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .character-count {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .faq-section {
+            margin-top: 40px;
+            grid-column: span 2;
+        }
+
+        .faq-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: #e9ecef;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .faq-answer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+            display: none;
+            color: #495057;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-section {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LearnSmart Tutoring</h1>
+        <p>Your Path to Academic Success</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="subjects.html">Subjects</a>
+        <a href="tutors.html">Our Tutors</a>
+        <a href="contact.html">Contact</a>
+        <a href="/view-messages">Admin</a>
+    </nav>
+
+    <main>
+        <h2>📬 Get in Touch</h2>
+        <p>Have questions? We'd love to hear from you. Send us a message and we'll respond within 24 hours.</p>
+
+        <div class="contact-container">
+            <!-- Contact Information Section -->
+            <div class="contact-info">
+                <h3>📞 Contact Information</h3>
+                
+                <div class="info-item">
+                    <span class="info-icon">📧</span>
+                    <div class="info-text">
+                        <strong>Email</strong>
+                        <a href="mailto:info@learnsmart.com" style="color: white; text-decoration: none;">info@learnsmart.com</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📱</span>
+                    <div class="info-text">
+                        <strong>Phone</strong>
+                        <a href="tel:+15551234567" style="color: white; text-decoration: none;">(555) 123-4567</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div class="info-text">
+                        <strong>Address</strong>
+                        123 Education Lane<br>
+                        Learning City, ST 12345
+                    </div>
+                </div>
+
+                <div class="hours-card">
+                    <h4 style="margin-top: 0; color: white;">🕒 Hours of Operation</h4>
+                    <div class="hours-row">
+                        <span>Monday - Friday</span>
+                        <span>9:00 AM - 8:00 PM</span>
+                    </div>
+                    <div class="hours-row">
+                        <span>Saturday</span>
+                        <span>10:00 AM - 4:00 PM</span>
+                    </div>
+                    <div class="hours-row">
+                        <span>Sunday</span>
+                        <span>Closed</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; text-align: center;">
+                    <p style="opacity: 0.9;">✨ Response time: Within 24 hours</p>
+                </div>
+            </div>
+
+            <!-- Modern Form Section -->
+            <div class="modern-form">
+                <div class="success-message" id="successMessage">
+                    ✅ Message sent successfully! We'll get back to you soon.
+                </div>
+
+                <form action="/submit-contact" method="POST" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">👤 Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        <div class="error-message" id="nameError">Please enter your name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">📧 Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        <div class="error-message" id="emailError">Please enter a valid email</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">📋 Subject (Optional)</label>
+                        <input type="text" id="subject" name="subject" placeholder="What's this about?">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">💬 Your Message</label>
+                        <textarea id="message" name="message" placeholder="Type your message here..." required maxlength="500"></textarea>
+                        <div class="character-count"><span id="charCount">0</span>/500 characters</div>
+                        <div class="error-message" id="messageError">Please enter your message</div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span>📨 Send Message</span>
+                    </button>
+                </form>
+
+                <p style="text-align: center; margin-top: 20px; color: #7f8c8d; font-size: 0.9rem;">
+                    We respect your privacy and will never share your information.
+                </p>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3>❓ Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How quickly do you respond to messages?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We typically respond to all inquiries within 24 hours during weekdays, and within 48 hours on weekends.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer online tutoring?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! We offer both in-person and online tutoring sessions via video conferencing platforms.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is your cancellation policy?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        You can cancel or reschedule sessions up to 24 hours in advance without any penalty.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LearnSmart Tutoring. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Character counter for message box
+        const messageInput = document.getElementById('message');
+        const charCount = document.getElementById('charCount');
+        
+        messageInput.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+
+        // FAQ toggle functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+                const toggle = item.querySelector('.faq-toggle');
+                toggle.textContent = item.classList.contains('active') ? '−' : '+';
+            });
+        });
+
+        // Form validation
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', function(e) {
+            let isValid = true;
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(err => {
+                err.style.display = 'none';
+            });
+            
+            // Validate name
+            const name = document.getElementById('name');
+            if (!name.value.trim()) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim() || !emailPattern.test(email.value)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate message
+            const message = document.getElementById('message');
+            if (!message.value.trim()) {
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+            } else {
+                // Show loading state
+                const btn = document.getElementById('submitBtn');
+                btn.innerHTML = '⏳ Sending...';
+                btn.disabled = true;
+            }
+        });
+
+        // Check for success message in URL (if redirected back)
+        if (window.location.search.includes('success=true')) {
+            document.getElementById('successMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
