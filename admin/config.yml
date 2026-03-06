@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "subjects"
+    label: "Subjects"
+    folder: "_data/subjects"
+    create: true
+    fields:
+      - { label: "Name", name: "name", widget: "string", required: true }
+      - { label: "Icon", name: "icon", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+
+  - name: "tutors"
+    label: "Tutors"
+    folder: "_data/tutors"
+    create: true
+    fields:
+      - { label: "Name", name: "name", widget: "string", required: true }
+      - { label: "Specialties", name: "specialties", widget: "list" }
+      - { label: "Bio", name: "bio", widget: "text" }
+      - { label: "Meeting Link", name: "meetingLink", widget: "string" }
