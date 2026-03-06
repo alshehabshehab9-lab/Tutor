@@ -10,21 +10,17 @@ collections:
     label: "Subjects"
     folder: "_data/subjects"
     create: true
-    slug: "{{slug}}"
     fields:
       - { label: "Name", name: "name", widget: "string", required: true }
-      - { label: "Icon", name: "icon", widget: "string", required: false }
-      - { label: "Description", name: "description", widget: "text", required: true }
+      - { label: "Icon", name: "icon", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
 
   - name: "tutors"
     label: "Tutors"
     folder: "_data/tutors"
     create: true
-    slug: "{{slug}}"
     fields:
       - { label: "Name", name: "name", widget: "string", required: true }
-      - { label: "Specialties", name: "specialties", widget: "list", required: true }
-      - { label: "Bio", name: "bio", widget: "text", required: true }
-      - { label: "Meeting Link", name: "meetingLink", widget: "string", required: false }
-      - { label: "Photo", name: "photo", widget: "image", required: false }
-      
+      - { label: "Specialties", name: "specialties", widget: "list" }
+      - { label: "Bio", name: "bio", widget: "text" }
+      - { label: "Meeting Link", name: "meetingLink", widget: "string" }
